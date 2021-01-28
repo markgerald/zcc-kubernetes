@@ -1,0 +1,40 @@
+version: '3'
+services:
+  sf_php:
+    container_name: sf_php
+    build: ./containers/php
+    links:
+      - sf_mysql
+    volumes:
+      - "./:/var/www/html/"
+  sf_nginx:
+    container_name: sf_nginx
+    image: nginx:latest
+    links:
+      - sf_php:fpm
+    ports:
+      - "80:80"
+    depends_on:
+      - sf_php
+    volumes_from:
+      - sf_php
+    volumes:
+      - "./containers/nginx/conf.d/:/etc/nginx/conf.d/"
+  sf_mysql:
+    container_name: sf_mysql
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: Linx@2021
+      MYSQL_DATABASE: sf_linx
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql:rw
+    command: mysqld --sql_mode=""
+  sf_redis:
+    container_name: sf_redis
+    image: redis
+    ports:
+    - "6379:6379"
+volumes:
+  db_data:

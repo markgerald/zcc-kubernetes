@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-deployment
+  template:
+    metadata:
+      labels:
+        app: nginx-deployment
+    spec:
+      containers:
+        - name: nginx-image
+          image: nginx:latest
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/conf.d
+            - name: php-app-pvc
+              mountPath: /var/www/html
+      restartPolicy: Always
+      volumes:
+        - name: php-app-pvc
+          persistentVolumeClaim:
+            claimName: php-app-pvc
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
+            items:
+              - key: config
+                path: default.conf

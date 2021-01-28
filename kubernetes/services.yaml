@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-mysql-service
+spec:
+  type: ClusterIP
+  selector:
+    app: database-mysql-deployment
+  ports:
+    - port: 3306
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-webserver-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: nginx-deployment
+  ports:
+    - port: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-service
+spec:
+  selector:
+    app: php-app-deployment
+  ports:
+    - protocol: TCP
+      port: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-master
+  labels:
+    app: redis
+    role: master
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: redis
+    role: master
