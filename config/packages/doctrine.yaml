@@ -1,6 +1,8 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        sslmode: required
+        sslrootcert: '/var/www/html/BaltimoreCyberTrustRoot.crt.pem'
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
