@@ -27,18 +27,11 @@ spec:
             - name: APP_SECRET
               value: c055390293f4df5f6436b4a9d0f544ac
             - name: DATABASE_URL
-              value: 'mysql://root:Linx@2021@database-mysql-service:3306/sf_linx?serverVersion=8.0'
+              value: "mysql://root:Linx@2021@database-mysql-service:3306/sf_linx?serverVersion=8.0"
             - name: CORS_ALLOW_ORIGIN
               value: '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
             - name: REDIS_HOST
               value: redis://redis-master
-            - name: DB_HOST
-              value: mysql-service
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: database-mysql-secret
-                  key: password
           volumeMounts:
             - mountPath: /var/www/html
               name: php-app-pvc
