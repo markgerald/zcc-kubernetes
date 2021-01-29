@@ -36,10 +36,10 @@ Subir endpoint para acesso: `minikube service nginx-webserver-service --url`
 
 ## Azure
 
-Criar um cluster: https://docs.microsoft.com/pt-br/azure/aks/kubernetes-walkthrough-portal
-Criar um Container Repository: https://docs.microsoft.com/pt-br/azure/container-registry/container-registry-get-started-portal
+- Criar um cluster: https://docs.microsoft.com/pt-br/azure/aks/kubernetes-walkthrough-portal
+- Criar um Container Repository: https://docs.microsoft.com/pt-br/azure/container-registry/container-registry-get-started-portal
 
-Certifiquese de ter a Azure Cli instalada e configurada, para instalar assim como a AKS CLi
+Certifiquese de ter a *Azure Cli* instalada e configurada, para instalar assim como a AKS CLi
 
 #### Enviando imagem para ACR
 Logar no respositorio(pode alterar o nome zcclinx, caso crie o repositório com outro nome:
@@ -64,5 +64,5 @@ Enviar imagem para ACR: `docker push SEUREGISTRO.azurecr.io/linx/php80`
 - Criar database: `php bin/console doctrine:database:create`
 - Criar Schema: `php bin/console doctrine:schema:create`
 
-
+> Para verificar projeto rodando, acessar aba "serviços no painel Kubernetes da Azure, o IP para acesso a aplicação. O Swagger da api, roda na rota /api.
 
