@@ -23,3 +23,13 @@ Habilitar minikube para utilizar imagens docker geradas localmente:
 ` eval $(minikube docker-env)`
 
 Executar: `kubectl create -f kubernetes/`
+
+Verificar se está tudo ok: `minikube dashboard`
+
+Subir endpoint para acesso: `minikube service nginx-webserver-service --url`
+
+**Criar database e esquema via container/pop do PHP:**
+- pegar nome do pod php através do comando: `kubectl get pods`
+- Acessar: kubectl exec -it NOME-DO-POD bash
+- Criar database: `php bin/console doctrine:database:create`
+- Criar Schema: php bin/console doctrine:schema:create
