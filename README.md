@@ -58,6 +58,11 @@ Enviar imagem para ACR: `docker push SEUREGISTRO.azurecr.io/linx/php80`
 
 `az aks update -n myAKSCluster -g myResourceGroup --attach-acr <acr-name>`
 
+#### Linkar Kubectl ao cluster criado na AKS
+> (alterar myAKSCluster para o nome de seu cluster e myResourceGroup para seu grupo de recursos, assim como <acr-name> para o nome de seu repositório)
+  
+`az aks get-credentials --resource-group myResourceGroup --name myAKSCluster`
+
 #### Subir projeto para cluster criado na Azure e configurá-lo
 `kubectl create -f kubernetes/`
 (Acompanhar status no painel da Azure)
