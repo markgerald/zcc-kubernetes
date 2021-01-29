@@ -11,7 +11,6 @@ Projeto também roda com Docker compose:
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/ "kubectl")
 - [minikube](https://minikube.sigs.k8s.io/docs/start/ "minikube")
 - [Azure CLI](https://docs.microsoft.com/pt-br/cli/azure/install-azure-cli "Azure CLI")
-- AKS Cli: `az aks install-cli`
 
 ### Subindo ambiente Local
 
@@ -28,21 +27,21 @@ Verificar se está tudo ok: `minikube dashboard`
 
 Subir endpoint para acesso: `minikube service nginx-webserver-service --url`
 
-**Criar database e esquema via container/pod do PHP:**
+**Criar database e esquema via container/pop do PHP:**
 - pegar nome do pod php através do comando: `kubectl get pods`
 - Acessar: `kubectl exec -it NOME-DO-POD bash`
 - Criar database: `php bin/console doctrine:database:create`
 - Criar Schema: `php bin/console doctrine:schema:create`
 
 ## Azure
-
+- Instalar AKS Cli: `az aks install-cli`
 - Criar um cluster: https://docs.microsoft.com/pt-br/azure/aks/kubernetes-walkthrough-portal
 - Criar um Container Repository: https://docs.microsoft.com/pt-br/azure/container-registry/container-registry-get-started-portal
 
 Certifiquese de ter a *Azure Cli* instalada e configurada, para instalar assim como a AKS CLi
 
 #### Enviando imagem para ACR
-Logar no respositorio(pode alterar o nome zcclinx, caso crie o repositório com outro nome:
+Logar no respositorio(pode alterar o nome *zcclinx*, caso crie o repositório com outro nome):
 `az acr login --name zcclinx`
 
 Criar tag para sua imagem gerada localmente: `docker tag linx/php80 SEUREGISTROAQUI.azurecr.iolinx/php80`
@@ -53,6 +52,11 @@ Enviar imagem para ACR: `docker push SEUREGISTRO.azurecr.io/linx/php80`
 
 - Editar arquivo kubernetes/php-deployment, alterando linha 16 para: `image: zcclinx.azurecr.io/linx/php80`
 - Comentar linha 17
+
+#### Integrar ACR com AKS
+> (alterar myAKSCluster para o nome de seu cluster e myResourceGroup para seu grupo de recursos, assim como <acr-name> para o nome de seu repositório)
+
+`az aks update -n myAKSCluster -g myResourceGroup --attach-acr <acr-name>`
 
 #### Subir projeto para cluster criado na Azure e configurá-lo
 `kubectl create -f kubernetes/`
