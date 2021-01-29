@@ -28,7 +28,7 @@ Verificar se está tudo ok: `minikube dashboard`
 
 Subir endpoint para acesso: `minikube service nginx-webserver-service --url`
 
-**Criar database e esquema via container/pop do PHP:**
+**Criar database e esquema via container/pod do PHP:**
 - pegar nome do pod php através do comando: `kubectl get pods`
 - Acessar: `kubectl exec -it NOME-DO-POD bash`
 - Criar database: `php bin/console doctrine:database:create`
