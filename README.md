@@ -16,7 +16,10 @@ Projeto também roda com Docker compose:
 ### Subindo ambiente Local
 
 Iniciar o minikube: `minikube start`
+
 Buildar imagem Dockerfile na raiz do projeto: `docker build . -t linx/php80`
+
 Habilitar minikube para utilizar imagens docker geradas localmente:
 ` eval $(minikube docker-env)`
+
 Executar: `kubectl create -f kubernetes/`
