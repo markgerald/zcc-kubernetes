@@ -50,7 +50,7 @@ Enviar imagem para ACR: `docker push SEUREGISTRO.azurecr.io/linx/php80`
 
 #### Editando deployment PHP para utilizar imagem docker a partir do ACR
 
-- Editar arquivo kubernetes/php-deployment, alterando linha 16 para: `image: zcclinx.azurecr.io/linx/php80`
+- Editar arquivo kubernetes/php-deployment, alterando linha 16 para: `image: SEUREGISTROAQUI.azurecr.io/linx/php80`
 - Comentar linha 17
 
 #### Integrar ACR com AKS
