@@ -30,6 +30,39 @@ Subir endpoint para acesso: `minikube service nginx-webserver-service --url`
 
 **Criar database e esquema via container/pop do PHP:**
 - pegar nome do pod php através do comando: `kubectl get pods`
-- Acessar: kubectl exec -it NOME-DO-POD bash
+- Acessar: `kubectl exec -it NOME-DO-POD bash`
 - Criar database: `php bin/console doctrine:database:create`
-- Criar Schema: php bin/console doctrine:schema:create
+- Criar Schema: `php bin/console doctrine:schema:create`
+
+## Azure
+
+Criar um cluster: https://docs.microsoft.com/pt-br/azure/aks/kubernetes-walkthrough-portal
+Criar um Container Repository: https://docs.microsoft.com/pt-br/azure/container-registry/container-registry-get-started-portal
+
+Certifiquese de ter a Azure Cli instalada e configurada, para instalar assim como a AKS CLi
+
+#### Enviando imagem para ACR
+Logar no respositorio(pode alterar o nome zcclinx, caso crie o repositório com outro nome:
+`az acr login --name zcclinx`
+
+Criar tag para sua imagem gerada localmente: `docker tag linx/php80 SEUREGISTROAQUI.azurecr.iolinx/php80`
+
+Enviar imagem para ACR: `docker push SEUREGISTRO.azurecr.io/linx/php80`
+
+#### Editando deployment PHP para utilizar imagem docker a partir do ACR
+
+- Editar arquivo kubernetes/php-deployment, alterando linha 16 para: `image: zcclinx.azurecr.io/linx/php80`
+- Comentar linha 17
+
+#### Subir projeto para cluster criado na Azure e configurá-lo
+`kubectl create -f kubernetes/`
+(Acompanhar status no painel da Azure)
+
+**Criar database e esquema via container/pop do PHP:**
+- pegar nome do pod php através do comando: `kubectl get pods`
+- Acessar: `kubectl exec -it NOME-DO-POD bash`
+- Criar database: `php bin/console doctrine:database:create`
+- Criar Schema: `php bin/console doctrine:schema:create`
+
+
+
